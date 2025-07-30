@@ -3,7 +3,7 @@
 title: 徐云江
 
 # Name pronunciation (optional)
-name_pronunciation: Yunjiang Xu
+name_pronunciation: Xu Yunjiang
 
 # Full name (for SEO)
 first_name: Yunjiang
@@ -20,7 +20,7 @@ superuser: true
 highlight_name: true
 
 # Role/position/tagline
-role: Chief Scientist
+role: PhD Student
 
 # Organizations/Affiliations to display in Biography blox
 organizations:
