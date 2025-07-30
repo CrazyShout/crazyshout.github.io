@@ -48,7 +48,7 @@ profiles:
 
 interests:
   - Artificial Intelligence
-  - Collaborative Percetion
+  - Collaborative Perception
   - Remote Driving
   - Embodied AI
 
