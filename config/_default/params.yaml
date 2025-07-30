@@ -39,15 +39,25 @@ header:
 
 # Site footer
 footer:
-  powered_by: false
+  enable: true
+  custom_text: ""  # 显式清空自定义文本
+  show_powered_by: false  # ⛔ 屏蔽“Published with Hugo Blox Builder”
   copyright:
-    # notice: '© {year} Me. This work is licensed under {license}'
     notice: '© {year} Yunjiang Xu'
     license:
       enable: true
       allow_derivatives: false
       share_alike: true
       allow_commercial: false
+# footer:
+#   copyright:
+#     # notice: '© {year} Me. This work is licensed under {license}'
+#     notice: '© {year} Yunjiang Xu'
+#     license:
+#       enable: true
+#       allow_derivatives: false
+#       share_alike: true
+#       allow_commercial: false
 
 # Localization
 locale:
