@@ -69,6 +69,7 @@ sections:
     design:
       # Choose a layout view
       view: date-title-summary
+      css_class: "news-block mt-14"   # ← 自定义类 + 提高与上个区块的外边距（Tailwind）
       # Reduce spacing
       spacing:
         padding: [0, 0, 0, 0]
