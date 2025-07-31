@@ -1,0 +1,16 @@
+{{/* layouts/partials/views/date-title-compact.html */}}
+{{ $fragment := .fragment | default "item" }}
+
+{{- if eq $fragment "start" -}}
+<div class="space-y-6">
+{{- else if eq $fragment "end" -}}
+</div>
+{{- else -}}
+  {{- $item := .item -}}
+  <div class="flex items-baseline gap-3">
+    <time datetime="{{ $item.Date | time.Format "2006-01-02" }}">{{ $item.Date | time.Format "Jan 2, 2006" }}</time>
+    <a href="{{ $item.RelPermalink }}" class="font-semibold hover:underline">
+      {{ $item.Title }}
+    </a>
+  </div>
+{{- end -}}

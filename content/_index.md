@@ -68,7 +68,7 @@ sections:
       order: desc
     design:
       # Choose a layout view
-      view: date-title-summary
+      view: date-title-compact # date-title-summary 是原来的
       css_class: "news-block mt-14"   # ← 自定义类 + 提高与上个区块的外边距（Tailwind）
       # Reduce spacing
       spacing:
