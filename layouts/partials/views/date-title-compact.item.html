@@ -1,0 +1,10 @@
+{{- $item := .item -}}
+<div class="flex items-baseline gap-3">
+  <time datetime="{{ $item.Date | time.Format "2006-01-02" }}">
+    {{ $item.Date | time.Format "Jan 2, 2006" }}
+    {{/* 想要中文日期：改成  "2006年1月2日" */}}
+  </time>
+  <a href="{{ $item.RelPermalink }}" class="font-semibold hover:underline">
+    {{ $item.Title }}
+  </a>
+</div>
