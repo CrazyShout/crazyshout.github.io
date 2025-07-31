@@ -1,18 +1,23 @@
-/* 1) 与上个区块再拉开距离（若没用 mt-14，这里用 CSS 实现） */
-/* section#news.news-block { margin-top: 3.5rem; } */
+/* 仅作用于 News 区块 */
+/* section#news.news-block { */
+  /* 如需与上个区块更开一点，解开下一行注释 */
+  /* margin-top: 3.5rem; */
+/* } */
 
-/* 2) 日期与标题之间加一点空隙 */
-section#news.news-block time { 
-  margin-right: 0.75rem; 
+/* 日期和标题之间加一点距离 */
+section#news.news-block time {
   display: inline-block;
+  margin-right: 0.75rem;
 }
 
-/* 3) Read more：默认隐藏（你要显示时可在区块加类名 show-more，即下方规则） */
-section#news.news-block .read-more { display: none; }
+/* 隐藏摘要行（但不影响两列布局的触发） */
+section#news.news-block .article-style {
+  display: none;
+}
 
-/* 当区块类名包含 show-more 时，Read more 显示且与摘要同一行 */
-section#news.news-block.show-more .read-more { 
-  display: inline; 
-  margin-left: 0.5rem; 
-  vertical-align: baseline;
+/* 隐藏 Read more（不同主题版本类名略有差异，下面做了兜底） */
+section#news.news-block .read-more,
+section#news.news-block a.btn,
+section#news.news-block .article-footer {
+  display: none;
 }
