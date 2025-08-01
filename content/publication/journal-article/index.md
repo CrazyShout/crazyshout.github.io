@@ -1,5 +1,9 @@
 ---
 title: "An example journal article"
+
+build:
+  list: never
+
 authors:
 - admin
 - Robert Ford
