@@ -1,0 +1,54 @@
+{{/* layouts/partials/views/citation.html
+     覆写主题的 citation 视图（单文件），兼容 fragment: start/item/end
+     功能：左侧缩略图（等比缩放，不裁剪）+ 右侧 标题/作者/期刊 + 链接按钮区
+*/}}
+
+{{- $fragment := .fragment | default "item" -}}
+
+{{- if eq $fragment "start" -}}
+  <div class="space-y-6">
+{{- else if eq $fragment "end" -}}
+  </div>
+{{- else -}}
+  {{- $item := .item -}}
+  {{- $img := or ($item.Resources.GetMatch "featured.*") ($item.Resources.GetMatch "*featured*") -}}
+
+  <div class="flex gap-5 items-start">
+    {{ with $img }}
+      {{/* 等比缩放；想更大把 560 提高，同时下方 w-[300px] 同步调大 */}}
+      {{ $thumb := .Resize "560x" }}
+      <a href="{{ $item.RelPermalink }}" class="shrink-0">
+        <img src="{{ $thumb.RelPermalink }}" alt="{{ $item.Title }}"
+             class="rounded-md w-[300px] h-auto object-contain" loading="lazy">
+      </a>
+    {{ end }}
+
+    <div class="min-w-0">
+      <div class="font-semibold">
+        <a href="{{ $item.RelPermalink }}" class="hover:underline">
+          {{ $item.Title }}
+        </a>
+      </div>
+
+      <div class="text-sm opacity-80 mt-1">
+        {{ with $item.Params.authors }}{{ delimit . ", " }}{{ end }}
+        {{ with $item.Date }} ({{ . | time.Format "2006" }}){{ end }}.
+        {{ with $item.Params.publication }} <em>{{ . }}</em>{{ end }}
+      </div>
+
+      {{/* 链接区：PDF / CITE / CODE / DATASET / VIDEO / SOURCE / DOI */}}
+      <div class="mt-2 flex flex-wrap gap-x-3 gap-y-1 text-sm">
+        {{ with $item.Params.url_pdf }}<a class="hover:underline" href="{{ . }}">PDF</a>{{ end }}
+
+        {{ $cite := $item.Resources.GetMatch "cite.*" }}
+        {{ with $cite }}<a class="hover:underline" href="{{ .RelPermalink }}">CITE</a>{{ end }}
+
+        {{ with $item.Params.url_code }}<a class="hover:underline" href="{{ . }}">CODE</a>{{ end }}
+        {{ with $item.Params.url_dataset }}<a class="hover:underline" href="{{ . }}">DATASET</a>{{ end }}
+        {{ with $item.Params.url_video }}<a class="hover:underline" href="{{ . }}">VIDEO</a>{{ end }}
+        {{ with $item.Params.url_source }}<a class="hover:underline" href="{{ . }}">SOURCE DOCUMENT</a>{{ end }}
+        {{ with $item.Params.doi }}<a class="hover:underline" href="https://doi.org/{{ . }}">DOI</a>{{ end }}
+      </div>
+    </div>
+  </div>
+{{- end -}}
