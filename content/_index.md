@@ -73,6 +73,13 @@ sections:
       # Reduce spacing
       spacing:
         padding: [0, 0, 0, 0]
+  - block: markdown
+    content:
+      # text: '[All News »](/post/news/)'   # 若用 tag 过滤，则改为 /post/?tag=news
+      text: '[All News »](/post/?tag=news)'   # 若用 tag 过滤，则改为 /post/?tag=news
+    design:
+      css_class: "mt-4 text-right"
+
   # - block: collection
   #   id: papers
   #   content:
