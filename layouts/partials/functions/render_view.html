@@ -1,0 +1,18 @@
+{{/* layouts/partials/functions/render_view.html (override)
+     允许自定义视图名：views/<view>.<fragment> */}}
+{{- $page := .page -}}
+{{- $item := .item -}}
+{{- $index := .index | default 0 -}}
+{{- $view := .view | default "article" -}}
+{{- $config := .config | default dict -}}
+{{- $fragment := .fragment | default "item" -}}
+
+{{/* 直接尝试使用视图名；若找不到，再回退到 article */}}
+{{- $name := printf "views/%s.%s" $view $fragment -}}
+{{- if templates.Exists ( printf "partials/%s.html" $name ) -}}
+  {{ partial $name (dict "page" $page "item" $item "index" $index "config" $config "fragment" $fragment) }}
+{{- else -}}
+  {{/* fallback 到内置 article 视图 */}}
+  {{ $fallback := printf "views/article.%s" $fragment }}
+  {{ partial $fallback (dict "page" $page "item" $item "index" $index "config" $config "fragment" $fragment) }}
+{{- end -}}
