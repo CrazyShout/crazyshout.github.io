@@ -100,7 +100,7 @@ sections:
           - publication
         exclude_featured: false
     design:
-      view: citation # citation 这是纯文字的试图
+      view: xpub-thumb # citation 这是纯文字的试图
   # - block: collection
   #   id: talks
   #   content:

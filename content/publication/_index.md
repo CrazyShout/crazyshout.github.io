@@ -3,7 +3,7 @@ title: Publications
 cms_exclude: true
 
 # View.
-view: citation # citation 这是纯文字视图
+view: xpub-thumb # citation 这是纯文字视图
 
 # Optional header image (relative to `static/media/` folder).
 banner:
