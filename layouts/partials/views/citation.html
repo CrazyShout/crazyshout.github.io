@@ -56,7 +56,7 @@
       {{ $venue := "" }}
       {{ if and $short $full }}
         {{ if ne $short $full }}
-          {{ $venue = printf "%s (%s)" $short $full }}
+          {{ $venue = printf "%s (%s)" $full $short }}
         {{ else }}
           {{ $venue = $short }}
         {{ end }}
