@@ -21,3 +21,21 @@ section#news.news-block a.btn,
 section#news.news-block .article-footer {
   display: none;
 }
+
+
+/* 视图相关 */
+/* Publications 链接徽章 */
+.pub-links .pub-badge{
+  display:inline-flex; align-items:center; gap:.35rem;
+  padding:.18rem .5rem; border:1px solid var(--tw-prose-links,#0ea5a0);
+  border-radius:.375rem; font-size:.875rem; line-height:1.25rem;
+  text-decoration:none; color:var(--tw-prose-links,#0ea5a0);
+  transition:all .15s ease;
+}
+.pub-links .pub-badge:hover{
+  background:var(--tw-prose-links,#0ea5a0); color:white;
+}
+.pub-links .pub-badge .i{ display:inline-block; transform:translateY(-1px); }
+
+/* 可选：让右侧段落更紧凑些 */
+.pub-links{ margin-top:.35rem; }
