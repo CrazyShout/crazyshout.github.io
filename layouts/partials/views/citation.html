@@ -48,38 +48,37 @@
       {{- end -}}
       {{ $authorsHTML := delimit $authorPieces ", " | safeHTML }}
 
-      {{/* 4) 会议（清理前缀/符号；支持全称+简称；年份放到最后） */}}
+      {{/* 4) 会议（读取 -> 组装 -> 清洗；年份放最后） */}}
       {{- $short := $item.Param "publication_short" | default "" -}}
       {{- $full  := $item.Param "publication"       | default "" -}}
-
-
-      {{- $venue := "" -}}
+      
+      {{- $venueRaw := "" -}}
       {{- if and $short $full -}}
         {{- if ne $short $full -}}
-          {{- /* 全称 (简称)；若想 简称 (全称) 就把顺序对调 */ -}}
-          {{- $venue = printf "%s (%s)" $full $short -}}
+          {{- $venueRaw = printf "%s (%s)" $full $short -}}   {{/* 全称(简称)；想反过来就调顺序 */}}
         {{- else -}}
-          {{- $venue = $short -}}
+          {{- $venueRaw = $short -}}
         {{- end -}}
       {{- else if $short -}}
-        {{- $venue = $short -}}
+        {{- $venueRaw = $short -}}
       {{- else if $full -}}
-        {{- $venue = $full -}}
+        {{- $venueRaw = $full -}}
       {{- end -}}
-
-      <!-- {{- $venue = $venue | replaceRE `\s+` " " | trim " \t\r\n" -}} -->
-      {{- $year  := $item.Date | time.Format "2006" -}}
-
+      
+      {{/* 统一清洗：去 markdown/html、去前缀 In、折叠空白、两端裁剪 */}}
+      {{- $venue := $venueRaw -}}
+      
+      {{- $year := $item.Date | time.Format "2006" -}}
+      
       <div class="text-sm opacity-80 mt-1">
         {{ $authorsHTML }}.
         {{- if $venue -}} In <em>{{ $venue }}</em>.{{- end -}}
         {{- if $year  -}} {{ $year }}.{{- end -}}
       </div>
-
-
-    {{/* 调试：如仍异常，临时取消注释看值
-    <!-- DEBUG: short="{{ $short }}" | full="{{ $full }}" | venue="{{ $venue }}" -->
-    */}}
+      
+      {{ warnf "PUBDEBUG page=%s short=%q full=%q venueRaw=%q venue=%q"
+          ($item.RelPermalink | default "n/a") $short $full $venueRaw $venue }}
+      
 
       {{/* 5) 链接徽章区（带小方框与小图标） */}}
       <div class="mt-2 flex flex-wrap gap-2 pub-links">
