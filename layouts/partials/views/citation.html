@@ -48,12 +48,27 @@
       {{- end -}}
       {{ $authorsHTML := delimit $authorPieces ", " | safeHTML }}
 
-      {{/* 4) 会议（优先简称） */}}
-      {{ $pub := or $item.Params.publication_short $item.Params.publication }}
+      {{/* 4) 会议（支持同时显示简称与全称；自动去掉前缀 In 和 * 粗斜体符号） */}}
+      {{ $short := $item.Params.publication_short | default "" | plainify | replaceRE `(?i)^\s*in\s+` "" }}
+      {{ $full  := $item.Params.publication         | default "" | plainify | replaceRE `(?i)^\s*in\s+` "" }}
+
+      {{/* 优先：简称 (全称)。若两者相同或只有一个，就只显示一个 */}}
+      {{ $venue := "" }}
+      {{ if and $short $full }}
+        {{ if ne $short $full }}
+          {{ $venue = printf "%s (%s)" $short $full }}
+        {{ else }}
+          {{ $venue = $short }}
+        {{ end }}
+      {{ else if $short }}
+        {{ $venue = $short }}
+      {{ else if $full }}
+        {{ $venue = $full }}
+      {{ end }}
 
       <div class="text-sm opacity-80 mt-1">
         {{ $authorsHTML }}{{ with $item.Date }} ({{ . | time.Format "2006" }}){{ end }}.
-        {{ with $pub }} In <em>{{ . }}</em>.{{ end }}
+        {{ with $venue }} In <em>{{ . }}</em>.{{ end }}
       </div>
 
       {{/* 5) 链接徽章区（带小方框与小图标） */}}
