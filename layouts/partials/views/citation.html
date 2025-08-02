@@ -16,7 +16,7 @@
   <div class="flex gap-5 items-start">
     {{ with $img }}
       {{/* 等比缩放；想更大把 560 提高，同时下方 w-[300px] 同步调大 */}}
-      {{ $thumb := .Resize "560x" }}
+      {{ $thumb := .Resize "320x" }}
       <a href="{{ $item.RelPermalink }}" class="shrink-0">
         <img src="{{ $thumb.RelPermalink }}" alt="{{ $item.Title }}"
              class="rounded-md w-[300px] h-auto object-contain" loading="lazy">
