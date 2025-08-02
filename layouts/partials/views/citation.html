@@ -48,32 +48,35 @@
       {{- end -}}
       {{ $authorsHTML := delimit $authorPieces ", " | safeHTML }}
 
-    {{/*4）清洗：去 Markdown/HTML、去前缀 In、压缩空白并两端裁剪 */}}
-    {{- $short := $item.Params.publication_short | default "" | markdownify | plainify | replaceRE `(?i)^\s*in\s+` "" | replaceRE `\s+` " " | trim -}}
-    {{- $full  := $item.Params.publication       | default "" | markdownify | plainify | replaceRE `(?i)^\s*in\s+` "" | replaceRE `\s+` " " | trim -}}
+      {{/* 4) 会议（清理前缀/符号；支持全称+简称；年份放到最后） */}}
+      {{- $short := $item.Params.publication_short | default "" | markdownify | plainify
+          | replaceRE `(?i)^\s*in\s+` "" | replaceRE `\s+` " " | trim " \t\r\n" -}}
+      {{- $full  := $item.Params.publication       | default "" | markdownify | plainify
+          | replaceRE `(?i)^\s*in\s+` "" | replaceRE `\s+` " " | trim " \t\r\n" -}}
 
-    {{- /* 组合顺序：全称 (简称)。需要“简称 (全称)”就调换 printf 的两个参数 */ -}}
-    {{- $venue := "" -}}
-    {{- if and $short $full -}}
-      {{- if ne $short $full -}}
-        {{- $venue = printf "%s (%s)" $full $short -}}
-      {{- else -}}
+      {{- $venue := "" -}}
+      {{- if and $short $full -}}
+        {{- if ne $short $full -}}
+          {{- /* 全称 (简称)；若想 简称 (全称) 就把顺序对调 */ -}}
+          {{- $venue = printf "%s (%s)" $full $short -}}
+        {{- else -}}
+          {{- $venue = $short -}}
+        {{- end -}}
+      {{- else if $short -}}
         {{- $venue = $short -}}
+      {{- else if $full -}}
+        {{- $venue = $full -}}
       {{- end -}}
-    {{- else if $short -}}
-      {{- $venue = $short -}}
-    {{- else if $full -}}
-      {{- $venue = $full -}}
-    {{- end -}}
 
-    {{- $venue = $venue | replaceRE `\s+` " " | trim -}}
-    {{- $year  := $item.Date | time.Format "2006" -}}
+      {{- $venue = $venue | replaceRE `\s+` " " | trim " \t\r\n" -}}
+      {{- $year  := $item.Date | time.Format "2006" -}}
 
-    <div class="text-sm opacity-80 mt-1">
-      {{ $authorsHTML }}.
-      {{- if $venue -}} In <em>{{ $venue }}</em>.{{- end -}}
-      {{- if $year  -}} {{ $year }}.{{- end -}}
-    </div>
+      <div class="text-sm opacity-80 mt-1">
+        {{ $authorsHTML }}.
+        {{- if $venue -}} In <em>{{ $venue }}</em>.{{- end -}}
+        {{- if $year  -}} {{ $year }}.{{- end -}}
+      </div>
+
 
     {{/* 调试：如仍异常，临时取消注释看值
     <!-- DEBUG: short="{{ $short }}" | full="{{ $full }}" | venue="{{ $venue }}" -->
