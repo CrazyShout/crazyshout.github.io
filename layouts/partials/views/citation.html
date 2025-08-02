@@ -48,31 +48,32 @@
       {{- end -}}
       {{ $authorsHTML := delimit $authorPieces ", " | safeHTML }}
 
-      {{/* 4) 会议（清理前缀/符号；支持全称+简称；年份放到最后） */}}
-      {{ $short := $item.Params.publication_short | default "" | replaceRE `(?i)^\s*in\s+` "" | replace "*" "" | replace "_" "" }}
-      {{ $full  := $item.Params.publication       | default "" | replaceRE `(?i)^\s*in\s+` "" | replace "*" "" | replace "_" "" }}
+      {{/* 4）会议名清洗：把 Markdown 去掉 -> 去掉前缀 In -> 去空格 */}}
+      {{- $short := $item.Params.publication_short | default "" | markdownify | plainify | replaceRE `(?i)^\s*in\s+` "" | trim " " -}}
+      {{- $full  := $item.Params.publication       | default "" | markdownify | plainify | replaceRE `(?i)^\s*in\s+` "" | trim " " -}}
 
-      {{ $venue := "" }}
-      {{ if and $short $full }}
-        {{ if ne $short $full }}
-          {{/* 你想“全称 (简称)”就这样；若想“简称 (全称)”把顺序对调 */}}
-          {{ $venue = printf "%s (%s)" $full $short }}
-        {{ else }}
-          {{ $venue = $short }}
-        {{ end }}
-      {{ else if $short }}
-        {{ $venue = $short }}
-      {{ else if $full }}
-        {{ $venue = $full }}
-      {{ end }}
+      {{- $venue := "" -}}
+      {{- if and $short $full -}}
+        {{- if ne $short $full -}}
+          {{- /* 你要全称(简称) 就用这一行；想简称(全称)就对调 */ -}}
+          {{- $venue = printf "%s (%s)" $full $short -}}
+        {{- else -}}
+          {{- $venue = $short -}}
+        {{- end -}}
+      {{- else if $short -}}
+        {{- $venue = $short -}}
+      {{- else if $full -}}
+        {{- $venue = $full -}}
+      {{- end -}}
 
-      {{ $year := $item.Date | time.Format "2006" }}
+      {{- $year := $item.Date | time.Format "2006" -}}
 
       <div class="text-sm opacity-80 mt-1">
         {{ $authorsHTML }}.
         {{ with $venue }} In <em>{{ . }}</em>.{{ end }}
         {{ with $year }} {{ . }}.{{ end }}
       </div>
+
 
 
       {{/* 5) 链接徽章区（带小方框与小图标） */}}
