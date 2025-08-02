@@ -49,8 +49,8 @@
       {{ $authorsHTML := delimit $authorPieces ", " | safeHTML }}
 
       {{/* 4) 会议（清理前缀/符号；支持全称+简称；年份放到最后） */}}
-      {{ $short := $item.Params.publication_short | default "" | plainify | replaceRE `(?i)^\s*in\s+` "" }}
-      {{ $full  := $item.Params.publication         | default "" | plainify | replaceRE `(?i)^\s*in\s+` "" }}
+      {{ $short := $item.Params.publication_short }}
+      {{ $full  := $item.Params.publication }}
 
       {{- $venue := "" -}}
       {{- if and $short $full -}}
@@ -77,7 +77,7 @@
 
 
     {{/* 调试：如仍异常，临时取消注释看值
-    DEBUG: short="{{ $short }}" | full="{{ $full }}" | venue="{{ $venue }}"
+    <!-- DEBUG: short="{{ $short }}" | full="{{ $full }}" | venue="{{ $venue }}" -->
     */}}
 
       {{/* 5) 链接徽章区（带小方框与小图标） */}}
