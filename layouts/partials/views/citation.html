@@ -48,33 +48,36 @@
       {{- end -}}
       {{ $authorsHTML := delimit $authorPieces ", " | safeHTML }}
 
-      {{/* 4）会议名清洗：把 Markdown 去掉 -> 去掉前缀 In -> 去空格 */}}
-      {{- $short := $item.Params.publication_short | default "" | markdownify | plainify | replaceRE `(?i)^\s*in\s+` "" | trim " " -}}
-      {{- $full  := $item.Params.publication       | default "" | markdownify | plainify | replaceRE `(?i)^\s*in\s+` "" | trim " " -}}
+    {{/*4）清洗：去 Markdown/HTML、去前缀 In、压缩空白并两端裁剪 */}}
+    {{- $short := $item.Params.publication_short | default "" | markdownify | plainify | replaceRE `(?i)^\s*in\s+` "" | replaceRE `\s+` " " | trim -}}
+    {{- $full  := $item.Params.publication       | default "" | markdownify | plainify | replaceRE `(?i)^\s*in\s+` "" | replaceRE `\s+` " " | trim -}}
 
-      {{- $venue := "" -}}
-      {{- if and $short $full -}}
-        {{- if ne $short $full -}}
-          {{- /* 你要全称(简称) 就用这一行；想简称(全称)就对调 */ -}}
-          {{- $venue = printf "%s (%s)" $full $short -}}
-        {{- else -}}
-          {{- $venue = $short -}}
-        {{- end -}}
-      {{- else if $short -}}
+    {{- /* 组合顺序：全称 (简称)。需要“简称 (全称)”就调换 printf 的两个参数 */ -}}
+    {{- $venue := "" -}}
+    {{- if and $short $full -}}
+      {{- if ne $short $full -}}
+        {{- $venue = printf "%s (%s)" $full $short -}}
+      {{- else -}}
         {{- $venue = $short -}}
-      {{- else if $full -}}
-        {{- $venue = $full -}}
       {{- end -}}
+    {{- else if $short -}}
+      {{- $venue = $short -}}
+    {{- else if $full -}}
+      {{- $venue = $full -}}
+    {{- end -}}
 
-      {{- $year := $item.Date | time.Format "2006" -}}
+    {{- $venue = $venue | replaceRE `\s+` " " | trim -}}
+    {{- $year  := $item.Date | time.Format "2006" -}}
 
-      <div class="text-sm opacity-80 mt-1">
-        {{ $authorsHTML }}.
-        {{ with $venue }} In <em>{{ . }}</em>.{{ end }}
-        {{ with $year }} {{ . }}.{{ end }}
-      </div>
+    <div class="text-sm opacity-80 mt-1">
+      {{ $authorsHTML }}.
+      {{- if $venue -}} In <em>{{ $venue }}</em>.{{- end -}}
+      {{- if $year  -}} {{ $year }}.{{- end -}}
+    </div>
 
-
+    {{/* 调试：如仍异常，临时取消注释看值
+    <!-- DEBUG: short="{{ $short }}" | full="{{ $full }}" | venue="{{ $venue }}" -->
+    */}}
 
       {{/* 5) 链接徽章区（带小方框与小图标） */}}
       <div class="mt-2 flex flex-wrap gap-2 pub-links">
