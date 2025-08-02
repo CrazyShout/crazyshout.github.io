@@ -1,9 +1,9 @@
 ---
 # Display name
-title: 徐云江
+title: Yunjiang Xu
 
 # Name pronunciation (optional)
-name_pronunciation: Xu Yunjiang
+name_pronunciation: 徐云江
 
 # Full name (for SEO)
 first_name: Yunjiang
