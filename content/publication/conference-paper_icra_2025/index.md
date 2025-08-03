@@ -31,10 +31,10 @@ publishDate: '2017-01-01T00:00:00Z'
 publication_types: ['paper-conference']
 
 # Publication name and optional abbreviated publication name.
-publication: IEEE International Conference on Computer Vision
-publication_short: ICCV
+publication: IEEE International Conference on Robotics and Automation
+publication_short: ICRA
 
-abstract: "Collaborative perception systems overcome single-vehicle limitations in long-range detection and occlusion scenarios by integrating multi-agent sensory data, improving accuracy and safety. However, frequent cooperative interactions and real-time requirements impose stringent bandwidth constraints. Previous works proves that query-based instance-level interaction reduces bandwidth demands and manual priors, however, LiDAR-focused implementations in collaborative perception remain underdeveloped, with performance still trailing state-of-the-art approaches. To bridge this gap, we propose INSTINCT (instance-level interaction architecture), a novel collaborative perception framework featuring three core components: 1. a quality-aware filtering mechanism for high-quality instance feature selection; 2. a dual-branch detection routing scheme to decouple collaboration-irrelevant and collaboration-relevant instances; 3. a Cross Agent Local Instance Fusion module to aggregate local hybrid instance features. Additionally, we enhance the ground truth (GT) sampling technique to facilitate training with diverse hybrid instance features. Extensive experiments across multiple datasets demonstrate that INSTINCT achieves superior performance. Specifically, our method achieves an improvement in accuracy 13.23%/32.24% in DAIR-V2X and V2V4Real while reducing the communication bandwidth to 1/281 and 1/264 compared to state-of-the-art methods. The code is available at https://github.com/CrazyShout/INSTINCT."
+abstract: "Collaborative perception, fusing information from multiple agents, can extend perception range so as to improve perception performance. However, temporal asynchrony in real-world environments, caused by communication delays, clock misalignment, or sampling configuration differences, can lead to information mismatches. If this is not well handled, then the collaborative performance is patchy, and what's worse safety accidents may occur. To tackle this challenge, we propose CoDynTrust, an uncertainty-encoded asynchronous fusion perception framework that is robust to the information mismatches caused by temporal asynchrony. CoDynTrust generates dynamic feature trust modulus (DFTM) for each region of interest by modeling aleatoric and epistemic uncertainty as well as selectively suppressing or retaining single-vehicle features, thereby mitigating information mismatches. We then design a multi-scale fusion module to handle multi-scale feature maps processed by DFTM. Compared to existing works that also consider asynchronous collaborative perception, CoDynTrust combats various low-quality information in temporally asynchronous scenarios and allows uncertainty to be propagated to downstream tasks such as planning and control. Experimental results demonstrate that CoDynTrust significantly reduces performance degradation caused by temporal asynchrony across multiple datasets, achieving state-of-the-art detection performance even with temporal asynchrony. The code is available at https://github.com/CrazyShout/CoDynTrust."
 
 # Summary. An optional shortened abstract.
 # summary: ""
@@ -51,7 +51,7 @@ featured: true
 #   url: http://example.org
 
 url_pdf: ''
-url_code: 'https://github.com/CrazyShout/INSTINCT'
+url_code: 'https://github.com/CrazyShout/CoDynTrust'
 url_dataset: 'https://github.com/HugoBlox/hugo-blox-builder'
 url_poster: ''
 url_project: ''
