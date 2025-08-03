@@ -1,5 +1,5 @@
 ---
-title: 'INSTINCT: Instance-Level Interaction Architecture for Query-Based Collaborative Perception'
+title: 'CoDynTrust: Robust Asynchronous Collaborative Perception via Dynamic Feature Trust Modulus'
 
 # build:
 #   list: never
@@ -11,15 +11,17 @@ authors:
   - admin
   - Lingzhi Li
   - Jin Wang
-  - Yupeng Ouyang
   - Benyuan Yang
+  - Zhiwen Wu
+  - Xinhong Chen
+  - Jianping Wang
 
 # Author notes (optional)
 author_notes:
   - 'Equal contribution'
   # - 'Equal contribution'
 
-date: '2025-06-26T00:00:00Z'
+date: '2025-01-31T00:00:00Z'
 doi: ''
 
 # Schedule page publish date (NOT publication's date).
