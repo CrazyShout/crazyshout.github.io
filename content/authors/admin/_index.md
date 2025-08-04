@@ -184,4 +184,4 @@ awards:
 
 ## About Me
 
-I am Yunjiang Xu, a recent M.S. graduate (June 2025) from Soochow University, China. My research interests span autonomous driving, collaborative perception, embodied intelligence, and unsupervised learning. I will soon embark on my Ph.D. studies. For collaboration or academic exchange, please reach out via email.
+I am Yunjiang Xu (徐云江), a recent M.S. graduate (June 2025) from Soochow University, China. My research interests span autonomous driving, collaborative perception, embodied intelligence, and unsupervised learning. I will soon embark on my Ph.D. studies. For collaboration or academic exchange, please reach out via email.
