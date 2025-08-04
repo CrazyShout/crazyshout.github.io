@@ -80,19 +80,56 @@
           ($item.RelPermalink | default "n/a") $short $full $venueRaw $venue }}
       
 
-      {{/* 5) 链接徽章区（带小方框与小图标） */}}
-      <div class="mt-2 flex flex-wrap gap-2 pub-links">
-        {{ $cite := $item.Resources.GetMatch "cite.*" }}
-        {{ with $cite }}
-          <a class="pub-badge" href="{{ .RelPermalink }}"><span class="i">📄</span> CITE</a>
-        {{ end }}
-        {{ with $item.Params.url_pdf }}<a class="pub-badge" href="{{ . }}"><span class="i">📕</span> PDF</a>{{ end }}
-        {{ with $item.Params.url_code }}<a class="pub-badge" href="{{ . }}"><span class="i">💻</span> CODE</a>{{ end }}
-        {{ with $item.Params.url_dataset }}<a class="pub-badge" href="{{ . }}"><span class="i">🧰</span> DATASET</a>{{ end }}
-        {{ with $item.Params.url_video }}<a class="pub-badge" href="{{ . }}"><span class="i">🎬</span> VIDEO</a>{{ end }}
-        {{ with $item.Params.url_source }}<a class="pub-badge" href="{{ . }}"><span class="i">📄</span> SOURCE DOCUMENT</a>{{ end }}
-        {{ with $item.Params.doi }}<a class="pub-badge" href="https://doi.org/{{ . }}"><span class="i">🔗</span> DOI</a>{{ end }}
-      </div>
+      {{/* 5) 链接徽章区（只在存在任意徽章时渲染；每项都做判空） */}}
+      {{- $links := slice -}}
+
+      {{- $cite := $item.Resources.GetMatch "cite.*" -}}
+      {{- with $cite -}}
+        {{- $links = $links | append (dict "href" .RelPermalink "label" "CITE" "icon" "📄") -}}
+      {{- end -}}
+
+      {{- with ($item.Param "url_pdf") -}}
+        {{- $u := . | trim " \t\r\n" -}}
+        {{- if $u -}}{{- $links = $links | append (dict "href" $u "label" "PDF" "icon" "📕") -}}{{- end -}}
+      {{- end -}}
+
+      {{- with ($item.Param "url_code") -}}
+        {{- $u := . | trim " \t\r\n" -}}
+        {{- if $u -}}{{- $links = $links | append (dict "href" $u "label" "CODE" "icon" "💻") -}}{{- end -}}
+      {{- end -}}
+
+      {{- with ($item.Param "url_dataset") -}}
+        {{- $u := . | trim " \t\r\n" -}}
+        {{- if $u -}}{{- $links = $links | append (dict "href" $u "label" "DATASET" "icon" "🧰") -}}{{- end -}}
+      {{- end -}}
+
+      {{- with ($item.Param "url_video") -}}
+        {{- $u := . | trim " \t\r\n" -}}
+        {{- if $u -}}{{- $links = $links | append (dict "href" $u "label" "VIDEO" "icon" "🎬") -}}{{- end -}}
+      {{- end -}}
+
+      {{- with ($item.Param "url_source") -}}
+        {{- $u := . | trim " \t\r\n" -}}
+        {{- if $u -}}{{- $links = $links | append (dict "href" $u "label" "SOURCE DOCUMENT" "icon" "📄") -}}{{- end -}}
+      {{- end -}}
+
+      {{- with ($item.Param "doi") -}}
+        {{- $d := . | trim " \t\r\n" -}}
+        {{- if $d -}}
+          {{- $links = $links | append (dict "href" (printf "https://doi.org/%s" $d) "label" "DOI" "icon" "🔗") -}}
+        {{- end -}}
+      {{- end -}}
+
+      {{- if gt (len $links) 0 -}}
+        <div class="mt-2 flex flex-wrap gap-2 pub-links">
+          {{- range $links -}}
+            <a class="pub-badge" href="{{ .href | safeURL }}" target="_blank" rel="noopener noreferrer">
+              <span class="i">{{ .icon }}</span> {{ .label }}
+            </a>
+          {{- end -}}
+        </div>
+      {{- end -}}
+
     </div>
   </div>
 {{- end -}}
