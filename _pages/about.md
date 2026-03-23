@@ -10,7 +10,7 @@ profile:
   image: prof_pic.jpg
   image_circular: false
   more_info: >
-    <p>yjxu95@gmail.com</p>
+    <p>yjxu09@gmail.com</p>
 
 selected_papers: true
 social: true
