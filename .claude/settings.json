@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git clone:*)",
+      "Read(//tmp/al-folio/**)",
+      "Bash(rsync -av --exclude='.git' --exclude='AGENTS.md' --exclude='CONTRIBUTING.md' --exclude='TROUBLESHOOTING.md' --exclude='FAQ.md' --exclude='docker-compose*.yml' --exclude='Dockerfile' --exclude='lighthouse_results' --exclude='readme_preview' --exclude='requirements.txt' /tmp/al-folio/ /media/atlas/ssd_data/ubuntu/crazyshout.github.io/)"
+    ],
+    "additionalDirectories": [
+      "/tmp",
+      "/media/atlas/ssd_data/ubuntu/crazyshout.github.io/.github/workflows"
+    ]
+  }
+}
