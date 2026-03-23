@@ -1,41 +1,92 @@
-/* 仅作用于 News 区块 */
-/* section#news.news-block { */
-  /* 如需与上个区块更开一点，解开下一行注释 */
-  /* margin-top: 3.5rem; */
-/* } */
+/* ========== News section ========== */
 
-/* 日期和标题之间加一点距离 */
+/* Date spacing in news list */
 section#news.news-block time {
   display: inline-block;
   margin-right: 0.75rem;
+  font-variant-numeric: tabular-nums;
+  opacity: 0.65;
+  font-size: 0.875rem;
 }
 
-/* 隐藏摘要行（但不影响两列布局的触发） */
+/* Hide article body/summary in news list */
 section#news.news-block .article-style {
   display: none;
 }
 
-/* 隐藏 Read more（不同主题版本类名略有差异，下面做了兜底） */
+/* Hide "Read more" and footer buttons */
 section#news.news-block .read-more,
 section#news.news-block a.btn,
 section#news.news-block .article-footer {
   display: none;
 }
 
+/* ========== Publications section ========== */
 
-/* 视图相关 */
-/* Publications 链接徽章 */
-.pub-links .pub-badge{
-  display:inline-flex; align-items:center; gap:.35rem;
-  padding:.18rem .5rem; border:1px solid var(--tw-prose-links,#0ea5a0);
-  border-radius:.375rem; font-size:.875rem; line-height:1.25rem;
-  text-decoration:none; color:var(--tw-prose-links,#0ea5a0);
-  transition:all .15s ease;
+/* Citation view: left accent on hover */
+.pub-list-item {
+  border-left: 3px solid transparent;
+  padding-left: 0.75rem;
+  margin-bottom: 1.25rem;
+  transition: border-color 0.2s ease;
 }
-.pub-links .pub-badge:hover{
-  background:var(--tw-prose-links,#0ea5a0); color:white;
-}
-.pub-links .pub-badge .i{ display:inline-block; transform:translateY(-1px); }
 
-/* 可选：让右侧段落更紧凑些 */
-.pub-links{ margin-top:.35rem; }
+.pub-list-item:hover {
+  border-left-color: var(--tw-prose-links, #0ea5a0);
+}
+
+/* Publication badge links */
+.pub-links .pub-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.18rem 0.5rem;
+  border: 1px solid var(--tw-prose-links, #0ea5a0);
+  border-radius: 0.375rem;
+  font-size: 0.8rem;
+  line-height: 1.25rem;
+  text-decoration: none;
+  color: var(--tw-prose-links, #0ea5a0);
+  transition: all 0.15s ease;
+}
+
+.pub-links .pub-badge:hover {
+  background: var(--tw-prose-links, #0ea5a0);
+  color: white;
+}
+
+.pub-links .pub-badge .i {
+  display: inline-block;
+  transform: translateY(-1px);
+}
+
+.pub-links {
+  margin-top: 0.35rem;
+}
+
+/* Bold the highlighted (primary) author in publication lists */
+.author-highlighted {
+  font-weight: 700;
+}
+
+/* ========== Section headings ========== */
+
+/* Tighten section title spacing */
+.section-heading h1,
+.section-heading h2 {
+  letter-spacing: -0.02em;
+}
+
+/* ========== Biography section ========== */
+
+/* Slightly increase bio text readability */
+.wg-biography .article-style p {
+  line-height: 1.75;
+}
+
+/* ========== General ========== */
+
+/* Smooth scroll for anchor links */
+html {
+  scroll-behavior: smooth;
+}
